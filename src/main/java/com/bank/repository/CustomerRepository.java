@@ -26,11 +26,12 @@ public class CustomerRepository {
         customers.forEach(item -> System.out.println(item));
     }
 
-    public List<Customer> getCustomerById(List<Integer> idList) {
+    public List<Customer> getCustomersById(List<Integer> idList) {
         return customers.stream().filter(item -> idList.contains(item.getId())).collect(Collectors.toList());
     }
 
     public List<Customer> getAllCustomers() {
         return customers;
     }
+
 }

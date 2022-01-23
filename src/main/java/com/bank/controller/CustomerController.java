@@ -30,8 +30,8 @@ public class CustomerController {
         return gson.toJson(service.getAllCustomers());
     }
 
-    @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getCustomers(@PathVariable @NotBlank Integer id) {
-        return gson.toJson(service.getCustomersById(List.of(id)));
+    @GetMapping(value = "/{ids}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getCustomersById(@PathVariable @NotBlank List<Integer> ids) {
+        return gson.toJson(service.getCustomersById(ids));
     }
 }
