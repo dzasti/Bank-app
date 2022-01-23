@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Getter
 @JsonPropertyOrder({ "transactionId", "transactionAmount", "customerFirstName", "customerId","customerLastName","transactionDate" })
-public class Transaction {
+public class Transaction{
 
     private final Integer transactionId;
     @JsonDeserialize(using = BigDecimalSerializer.class)
