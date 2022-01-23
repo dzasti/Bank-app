@@ -25,7 +25,7 @@ public class Customer {
     private final BigDecimal totalValueOfTransactions;
     @SerializedName(value = "Transactions fee value")
     private final BigDecimal transactionsFeeValue;
-    @SerializedName(value = " Last transaction date")
+    @SerializedName(value = "Last transaction date")
     private final Date lastTransactionDate;
 
     public Customer(Integer id, List<Transaction> transactions, List<FeeWages> wages) {
@@ -60,7 +60,7 @@ public class Customer {
     }
 
     private Date calculateLastTransactionDate(final List<Transaction> transactions) {
-        return Collections.max(transactions, (u1, u2) -> u2.getTransactionDate().compareTo(u1.getTransactionDate())).getTransactionDate();
+        return Collections.min(transactions, (u1, u2) -> u2.getTransactionDate().compareTo(u1.getTransactionDate())).getTransactionDate();
     }
 
     private BigDecimal calculateFeeValue(final List<FeeWages> wages) {

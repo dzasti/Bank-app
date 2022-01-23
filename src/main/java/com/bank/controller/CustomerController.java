@@ -14,7 +14,7 @@ import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @RestController
-@RequestMapping("/hello")
+@RequestMapping()
 @Validated
 public class CustomerController {
     private final CustomerService service;
@@ -25,9 +25,9 @@ public class CustomerController {
         this.service = aService;
     }
 
-    @GetMapping()
-    public String sayHello() {
-        return "Welcome";
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getAllCustomers() {
+        return gson.toJson(service.getAllCustomers());
     }
 
     @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)

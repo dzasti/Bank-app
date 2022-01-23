@@ -29,4 +29,8 @@ public class CustomerRepository {
     public List<Customer> getCustomerById(List<Integer> idList) {
         return customers.stream().filter(item -> idList.contains(item.getId())).collect(Collectors.toList());
     }
+
+    public List<Customer> getAllCustomers() {
+        return customers;
+    }
 }
