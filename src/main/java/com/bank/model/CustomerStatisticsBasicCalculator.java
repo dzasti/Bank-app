@@ -5,9 +5,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 @Component
 public class CustomerStatisticsBasicCalculator implements CustomerStatisticsCalculator {
@@ -25,14 +24,14 @@ public class CustomerStatisticsBasicCalculator implements CustomerStatisticsCalc
     }
 
     public Date calculateLastTransactionDate(final List<Transaction> transactions) {
-        return Collections.min(transactions, (u1, u2) -> {
+        transactions.forEach(transaction -> {
             try {
-                return u2.getFormattedDate().compareTo(u1.getFormattedDate());
+                transaction.formatDate();
             } catch (ParseException e) {
-                //e.printStackTrace();
+                e.printStackTrace();
             }
-            return 0;
-        }).getTransactionDate();
+        });
+        return Collections.min(transactions, (u1, u2) ->  u2.getTransactionDate().compareTo(u1.getTransactionDate())).getTransactionDate();
     }
 
     public BigDecimal calculateTransactionFeeValue(List<FeeWages> wages, Transaction transaction) {

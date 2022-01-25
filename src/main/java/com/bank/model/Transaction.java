@@ -2,6 +2,7 @@ package com.bank.model;
 
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import lombok.AccessLevel;
 import lombok.Getter;
 import java.math.BigDecimal;
 import java.text.DateFormat;
@@ -24,9 +25,10 @@ public class Transaction{
 
     private final String customerLastName;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy HH:mm:ss")
-    private final Date transactionDate;
+    private final String transactionDateStr;
 
+    @Getter(AccessLevel.NONE)
+    private Date transactionDate;
 
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public Transaction(@JsonProperty("transaction_id") Integer aTransactionId,
@@ -34,20 +36,23 @@ public class Transaction{
                        @JsonProperty("customer_first_name") String aCustomerFirstName,
                        @JsonProperty("customer_id") Integer aCustomerId,
                        @JsonProperty("customer_last_name") String aCustomerLastName,
-                       @JsonProperty("transaction_date") Date aTransactionDate) {
+                       @JsonProperty("transaction_date") String aTransactionDate) {
 
         this.transactionId = aTransactionId;
         this.transactionAmount = aTransactionAmount;
         this.customerFirstName = aCustomerFirstName;
         this.customerId = aCustomerId;
         this.customerLastName = aCustomerLastName;
-        this.transactionDate = aTransactionDate;
+        this.transactionDateStr = aTransactionDate;
     }
 
-    public Date getFormattedDate() throws ParseException {
-        System.out.println(this.getTransactionDate());
-        DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd hh:mm:ss zzz yyyy");
-        return dateFormat.parse(String.valueOf(this.transactionDate));
+    public void formatDate() throws ParseException {
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
+        transactionDate = dateFormat.parse(String.valueOf(this.transactionDateStr));
     }
 
+    @JsonIgnore
+    public Date getTransactionDate() {
+        return transactionDate;
+    }
 }

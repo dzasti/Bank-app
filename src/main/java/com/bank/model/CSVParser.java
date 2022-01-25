@@ -5,26 +5,24 @@ import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import java.io.*;
 import java.util.List;
+import java.util.Objects;
 
 public class CSVParser {
-
-    public static List<Transaction> getTransactions() throws IOException {
-        //xd popraw
-        Reader reader = new BufferedReader(new FileReader("src/main/resources/META-INF/transactions.csv"));
+    public static List<Transaction> getTransactions(String pathToTransactionFile) throws IOException {
+        Reader reader = new InputStreamReader(Objects.requireNonNull(CSVParser.class.getClassLoader().getResourceAsStream(pathToTransactionFile)));
         CsvMapper csvMapper = new CsvMapper();
         CsvSchema csvSchema = csvMapper.schemaFor(Transaction.class).withHeader();
-        MappingIterator<Transaction> personIter = csvMapper.readerWithTypedSchemaFor(Transaction.class).with(csvSchema).readValues(reader);
+        MappingIterator<Transaction> transactions = csvMapper.readerWithTypedSchemaFor(Transaction.class).with(csvSchema).readValues(reader);
 
-        //personIter.readAll().forEach(item -> System.out.println("tutaj:" + item.getTransactionDate()));
-        return personIter.readAll();
+        return transactions.readAll();
     }
 
-    public static List<FeeWages> getFeeWages() throws IOException {
-        // xd popraw
-        Reader reader = new BufferedReader(new FileReader("src/main/resources/META-INF/fee_wages.csv"));
+    public static List<FeeWages> getFeeWages(String pathToFeeWagesFile) throws IOException {
+        Reader reader = new InputStreamReader(Objects.requireNonNull(CSVParser.class.getClassLoader().getResourceAsStream(pathToFeeWagesFile)));
         CsvMapper csvMapper = new CsvMapper();
         CsvSchema csvSchema = csvMapper.schemaFor(FeeWages.class).withHeader();
-        MappingIterator<FeeWages> personIter = csvMapper.readerWithTypedSchemaFor(FeeWages.class).with(csvSchema).readValues(reader);
-        return personIter.readAll();
+        MappingIterator<FeeWages> feeWages = csvMapper.readerWithTypedSchemaFor(FeeWages.class).with(csvSchema).readValues(reader);
+
+        return feeWages.readAll();
     }
 }

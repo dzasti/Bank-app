@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class CustomerService{
+    private final static String TRANSACTIONS_FILE_PATH = "META-INF/transactions.csv";
+    private final static String FEE_WAGES_FILE_PATH = "META-INF/fee_wages.csv";
     private final List<Customer> customers;
 
     @Autowired
@@ -20,8 +22,8 @@ public class CustomerService{
 
         this.customers = new ArrayList<>();
 
-        Map<Integer,List<Transaction>> customerIdAndTransactionsMap = CSVParser.getTransactions().stream().collect(Collectors.groupingBy(Transaction::getCustomerId));
-        List<FeeWages> feeWages = CSVParser.getFeeWages();
+        Map<Integer,List<Transaction>> customerIdAndTransactionsMap = CSVParser.getTransactions(TRANSACTIONS_FILE_PATH).stream().collect(Collectors.groupingBy(Transaction::getCustomerId));
+        List<FeeWages> feeWages = CSVParser.getFeeWages(FEE_WAGES_FILE_PATH);
         feeWages.sort(Comparator.comparing(FeeWages::getTransactionValueLessThan));
 
         for (var entry : customerIdAndTransactionsMap.entrySet()) {
