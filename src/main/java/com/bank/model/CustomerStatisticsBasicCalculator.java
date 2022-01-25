@@ -1,9 +1,9 @@
 package com.bank.model;
 
 import org.springframework.stereotype.Component;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -37,8 +37,7 @@ public class CustomerStatisticsBasicCalculator implements CustomerStatisticsCalc
                 break;
             }
         }
-        System.out.println(desirableFeeValue);
-        return desirableFeeValue;
+        return desirableFeeValue.multiply(transaction.getTransactionAmount()).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
     }
 
     public BigDecimal calculateTotalValueOfTransactions(final List<Transaction> transactions) {

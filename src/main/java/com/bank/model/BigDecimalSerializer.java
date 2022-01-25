@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 
 public class BigDecimalSerializer extends StdDeserializer<BigDecimal> {
+
     public BigDecimalSerializer(Class<?> vc){
         super(vc);
     }

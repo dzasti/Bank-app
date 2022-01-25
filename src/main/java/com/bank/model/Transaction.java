@@ -11,11 +11,16 @@ import java.util.Date;
 public class Transaction{
 
     private final Integer transactionId;
+
     @JsonDeserialize(using = BigDecimalSerializer.class)
     private final BigDecimal transactionAmount;
+
     private final String customerFirstName;
+
     private final Integer customerId;
+
     private final String customerLastName;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy hh:mm:ss")
     private final Date transactionDate;
 
