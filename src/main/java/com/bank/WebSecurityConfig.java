@@ -12,15 +12,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .httpBasic()
-                .and()
                 .authorizeRequests()
                 .antMatchers("/").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().csrf().disable().httpBasic();
     }
 
     @Autowired

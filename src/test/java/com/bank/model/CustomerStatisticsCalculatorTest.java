@@ -62,7 +62,7 @@ public class CustomerStatisticsCalculatorTest{
     }
 
     @Test
-    void customerShouldHaveLastTransactionDateAsFirstFebruary2021() {
-        assertEquals("11.12.2022 2:57:22 PM" ,customer.getLastTransactionDate().toString());
+    void customerShouldHaveLastTransactionDateAsElevenDecember2022() {
+        assertEquals("Sun Dec 11 14:57:22 CET 2022" ,customer.getLastTransactionDate().toString());
     }
 }

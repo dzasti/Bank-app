@@ -45,7 +45,6 @@ public class CustomerService{
             customers.add(customer);
 
         }
-        customers.forEach(System.out::println);
     }
 
     public List<Customer> getCustomersById(List<Integer> idList) {
