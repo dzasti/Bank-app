@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -15,7 +16,7 @@ public class CustomerService{
 
     @Autowired
     CustomerService(TransactionRepository transactionRepository,
-                    CustomerStatisticsCalculator aCalculator) throws IOException {
+                    CustomerStatisticsCalculator aCalculator) throws IOException, ParseException {
 
         this.customers = new ArrayList<>();
 

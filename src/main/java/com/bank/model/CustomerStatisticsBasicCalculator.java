@@ -4,9 +4,10 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class CustomerStatisticsBasicCalculator implements CustomerStatisticsCalculator {
@@ -24,7 +25,14 @@ public class CustomerStatisticsBasicCalculator implements CustomerStatisticsCalc
     }
 
     public Date calculateLastTransactionDate(final List<Transaction> transactions) {
-        return Collections.min(transactions, (u1, u2) -> u2.getTransactionDate().compareTo(u1.getTransactionDate())).getTransactionDate();
+        return Collections.min(transactions, (u1, u2) -> {
+            try {
+                return u2.getFormattedDate().compareTo(u1.getFormattedDate());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return 0;
+        }).getTransactionDate();
     }
 
     public BigDecimal calculateTransactionFeeValue(List<FeeWages> wages, Transaction transaction) {

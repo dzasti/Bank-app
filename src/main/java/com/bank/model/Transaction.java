@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Getter;
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Getter
@@ -21,8 +24,9 @@ public class Transaction{
 
     private final String customerLastName;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy hh:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy HH:mm:ss")
     private final Date transactionDate;
+
 
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public Transaction(@JsonProperty("transaction_id") Integer aTransactionId,
@@ -38,6 +42,12 @@ public class Transaction{
         this.customerId = aCustomerId;
         this.customerLastName = aCustomerLastName;
         this.transactionDate = aTransactionDate;
+    }
+
+    public Date getFormattedDate() throws ParseException {
+        System.out.println(this.getTransactionDate());
+        DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd hh:mm:ss zzz yyyy");
+        return dateFormat.parse(String.valueOf(this.transactionDate));
     }
 
 }

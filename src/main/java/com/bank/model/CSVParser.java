@@ -14,6 +14,8 @@ public class CSVParser {
         CsvMapper csvMapper = new CsvMapper();
         CsvSchema csvSchema = csvMapper.schemaFor(Transaction.class).withHeader();
         MappingIterator<Transaction> personIter = csvMapper.readerWithTypedSchemaFor(Transaction.class).with(csvSchema).readValues(reader);
+
+        //personIter.readAll().forEach(item -> System.out.println("tutaj:" + item.getTransactionDate()));
         return personIter.readAll();
     }
 
