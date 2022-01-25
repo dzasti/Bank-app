@@ -1,6 +1,5 @@
 package com.bank.model;
 
-import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
