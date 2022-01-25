@@ -25,7 +25,7 @@ public class CustomerController {
         this.service = aService;
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = {"", "/ALL"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public String getAllCustomers() {
         return gson.toJson(service.getAllCustomers());
     }
