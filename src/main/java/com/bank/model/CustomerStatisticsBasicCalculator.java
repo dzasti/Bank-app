@@ -29,7 +29,7 @@ public class CustomerStatisticsBasicCalculator implements CustomerStatisticsCalc
             try {
                 return u2.getFormattedDate().compareTo(u1.getFormattedDate());
             } catch (ParseException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
             return 0;
         }).getTransactionDate();
